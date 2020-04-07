@@ -7,6 +7,10 @@ This repository contains data analysis of COVID-19.
   - [Objective](#objective)
   - [Project Introduction](#project-introduction)
   - [Data and Domain](#data-and-domain)
+  - [Data Processing](#data-processing)
+  - [User Dashboard](#user-dashboard)
+  - [Tentative Plan for Analysis on GCP](#tentative-plan-for-analysis-on-gcp)
+  - [Credits](#credits)
 
 ### Team Members:
   1. Karan Hirenkumar Shah (kshah51@uncc.edu)
@@ -16,14 +20,14 @@ This repository contains data analysis of COVID-19.
   5. Kruti Raval (kraval@uncc.edu)
 
 ## Objective: 
-Create awareness about the Corona Virus Disease(COVID-19) and understand in an easier manner the people affected and other attributes related to the disease with the help of data analysis.
+Create awareness about the Corona Virus Disease(COVID-19) and understand in an easier manner the people affected and other attributes related to the disease with the help of data analysis. 
+
+This analysis can help wide range of audience such as government officials, who want to control
+the spread of this pandemic diseases.
 
 We'll try to answer the following questions:
-*	Who are most affected by COVID -19? (age, gender, class.. etc)
 *	Which country contains majority of patients?
-*	How many of these affected patients have traveled to Wuhan?
-*	Do all the affected patients show same symptoms (age, gender, class.. etc)?
-*	What is the impact of the COVID-19 (Death vs Recovery of paitents )?
+*	What is the impact of the COVID-19 (Death vs Confirm of patients)?
 
 ## Project Introduction:
 From the World Health Organization - On 31 December 2019, WHO was alerted to several cases of pneumonia in Wuhan City, Hubei Province of China. The virus did not match any other known virus. This raised concern because when a virus is new, we do not know how it affects people. So daily level information on the affected people can give some interesting insights when it is made available to the broader data science community. Johns Hopkins University has made an excellent dashboard using the affected cases data. Data is extracted from the google sheets associated and made available.
@@ -33,30 +37,52 @@ From the World Health Organization - On 31 December 2019, WHO was alerted to sev
 
 * **Source Description** 
     
-    The dataset is acquired from [Kaggle](https://www.kaggle.com/). Kaggle is a subsidiary of Google LLC, is an online community of data scientists and machine learning practitioners.
+    The dataset is acquired from data.world(https://data.world/). Data.world is home to the world's largest collaborative data community, which is free and open for public. It is one of the platform where users can discover data and share analysis.
   
 * **Data Description**
     
-    Dataset Link- [COVID-19 Dataset](https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset#COVID19_open_line_list.csv)
+    Dataset Link- [COVID-19 dataset](https://data.world/covid-19-data-resource-hub/covid-19-case-counts/workspace/file?filename=COVID-19+Cases.hyper)
 
-    There are mainly 6 different files are provided. Main file in this dataset is [covid_19_data.csv](https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset#covid_19_data.csv). Other three files contains the list of confirmed, recovered and death cases on a perticular day in various countries. This dataset contains data from 22nd January, 2020 to 14th March, 2020 as of now. There are some empty attributes and missing values in the dataset so data preprocessing is required. The dataset contains 57 attributes and approaximately 20,000 records. Main data file attributes description is as follows:
+    This dataset contains data from 23rd January, 2020 to 5th April, 2020 as of now. There are some empty attributes and missing values in the dataset so data preprocessing is required. The dataset contains 13attributes and approaximately 5,26,200 records. Main data file attributes description is as follows:
 
-    * Sno - Serial number
-    * ObservationDate - Date of the observation in MM/DD/YYYY
-    * Province/State - Province or state of the observation (Could be empty when missing)
-    * Country/Region - Country of observation
-    * Last Update - Time in UTC at which the row is updated for the given province or country. (Not standardised and so please clean before using it)
-    * Confirmed - Cumulative number of confirmed cases till that date
-    * Deaths - Cumulative number of of deaths till that date
-    * Recovered - Cumulative number of recovered cases till that date
- 
+    * case_type - Confirmed Cases and total deaths
+    * cases - Point in time snapshot of to-date totals
+    * country_region - Provided for all countries
+    * province_state - Provided for Australia, Canada, China, Denmark, France, Netherlands, United Kingdom, United States
+    * admin2 - US only - County name
+    * combined_key - US only - Combination of Admin 2, State_Province, and Country_Region
+    * fips - US only - 5-digit Federal Information Processing Standard
+    * lat - Latitude
+    * lng- Longitude
+    * table_names - The Table Name is used to delineate the specific Johns Hopkins datasets that were used
+    * prep_flow_runtime - Date when the ETL job ran
+  
+## Data Processing
+  As the dataset was very clean and structured, minimal preprocessing was needed to prepare the data for machine learning. All the python code for preprocessing can be found in [Data-Preprocessing.ipynb](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/Data-Preprocessing.ipynb).
 
-* **Tentative plan for analysis on GCP**
+## User Dashboard
+  ![User Dashboard](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/image.png)
 
-    1. EDA and Data Preprocessing
-    2. GCP Dashboard
-    3. Machine Learning on GCP
-    4. Evaluation of results
+## Tentative plan for analysis on GCP
+
+  1. EDA and Preprocessing: Data has been already pre processed. We can directly work on it and start analysis.
+  2. Dashboard for User group: We have already created a dashboard for the user group. 
+  3. Machine Learning on GCP: We will use various analysis techniques offered by GCP like PySpark, BigQuery. 
+  4. Evaluation of results: We will be evaluating our result by RMSE(Root Mean Square Error). The smaller the value is the accurate result will be.
+  5. Production Model: We will try to develop couple of models and the best performing model will be choosen for the production model. 
+  
+## Credits
+  
+  * https://www.academia.edu/40111185/Effect_of_Noisy_Data_on_Performance_of_Machine_Learning
+  
+    This paper shows the impact of the noisy data. In this paper they experimented in two ways and the outcome of it is very insightful. It clearly shows that a dataset should be processed very well and there should be no noisy data like empty values or outliers etc.
+
+  * https://www.tableau.com/covid-19-coronavirus-data-resources
+   We received the data from this source. This link includes reported cases at the country level and province/state in select countries. 
+
+  * https://github.com/CSSEGISandData/COVID-19
+  
+    We were inspired a lot by this repository by Johns Hopkins CSSE. He has developed some beautiful visulizations and provided various useful resource links.
 
 
 
