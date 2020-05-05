@@ -155,6 +155,8 @@ Following are the steps followed to design the Linear Regressor on GCP:
 
 ### Predictions:
 
+  `gcloud ai-platform predict --model $MODEL_NAME  --version $VERSION_NAME --text-instances $INPUT_DATA_FILE`
+
   ![Final_Output](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/Final_Output.png)
 
 ## Future Work
