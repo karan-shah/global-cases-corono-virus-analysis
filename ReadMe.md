@@ -3,22 +3,21 @@
 This repository contains data analysis of COVID-19.
 
 # Table Of Contents
-  - [Team Members:](#team-members)
-  - [Objective](#objective)
   - [Project Introduction](#project-introduction)
+  - [Objective](#objective)
+  - [Meet the team](#meet-the-team)
   - [Data and Domain](#data-and-domain)
   - [Data Processing](#data-processing)
   - [User Dashboard](#user-dashboard)
-  - [Tentative Plan for Analysis on GCP](#tentative-plan-for-analysis-on-gcp)
   - [Forty Three Rules of Machine Learning](#forty-three-rules-of-machine-learning)
+  - [Data Ingest into GCP](#data-ingest-into-gcp)
+  - [Modelling on GCP](#modeling-on-gcp)
+  - [Results and Output](#results-and-output)
+  - [Future Work](#future-work)
   - [Credits](#credits)
 
-### Team Members:
-  1. Karan Hirenkumar Shah (kshah51@uncc.edu)
-  2. Sarang Suhas Padalkar (spadalka@uncc.edu)
-  3. Abhishek Tanwer (atanwer@uncc.edu)
-  4. Janhvi Chitnis (jchitnis@uncc.edu)
-  5. Kruti Raval (kraval@uncc.edu)
+## Project Introduction:
+From the World Health Organization - On 31 December 2019, WHO was alerted to several cases of pneumonia in Wuhan City, Hubei Province of China. The virus did not match any other known virus. This raised concern because when a virus is new, we do not know how it affects people. So daily level information on the affected people can give some interesting insights when it is made available to the broader data science community. Johns Hopkins University has made an excellent dashboard using the affected cases data. Data is extracted from the google sheets associated and made available.
 
 ## Objective: 
 Create awareness about the Corona Virus Disease(COVID-19) and understand in an easier manner the people affected and other attributes related to the disease with the help of data analysis. 
@@ -29,9 +28,17 @@ the spread of this pandemic diseases.
 We'll try to answer the following questions:
 *	Which country contains majority of patients?
 *	What is the impact of the COVID-19 (Death vs Confirm of patients)?
+* Predict the number of confirmed cases on a particular day
 
-## Project Introduction:
-From the World Health Organization - On 31 December 2019, WHO was alerted to several cases of pneumonia in Wuhan City, Hubei Province of China. The virus did not match any other known virus. This raised concern because when a virus is new, we do not know how it affects people. So daily level information on the affected people can give some interesting insights when it is made available to the broader data science community. Johns Hopkins University has made an excellent dashboard using the affected cases data. Data is extracted from the google sheets associated and made available.
+## Meet the Team
+
+| Member Name           | E-mail            | Roles & Responsibilities                                                                |
+| --------------------- | ----------------- | --------------------------------------------------------------------------------------- |
+| Karan Hirenkumar Shah | kshah51@uncc.edu  | Work with Sarang for data preprocessing, data ingesting, data modelling and predictions |
+| Sarang Padalkar       | spadalka@uncc.edu | Work with Karan for data preprocessing, data ingesting, data modelling and predictions  |
+| Abhishek Tanwer       | atanwer@uncc.edu  | Work with Janhvi to create user dashboard and project visualizations                    |
+| Janhvi Chitnis        | jchitnis@uncc.edu | Work with Abhishek to create user dashboard and project visualizations                  |
+| Kruti Raval           | kraval@uncc.edu   | Knowledge gathering, research on data & domain and documentations                       |
 
 ## Data and Domain:
 2019 Novel Coronavirus (2019-nCoV) is a virus (more specifically, a coronavirus) identified as the cause of an outbreak of respiratory illness first detected in Wuhan, China. Early on, many of the patients in the outbreak in Wuhan, China reportedly had some link to a large seafood and animal market, suggesting animal-to-person spread. However, a growing number of patients reportedly have not had exposure to animal markets, indicating person-to-person spread is occurring. At this time, it’s unclear how easily or sustainably this virus is spreading between people.
@@ -44,7 +51,7 @@ From the World Health Organization - On 31 December 2019, WHO was alerted to sev
     
     Dataset Link- [COVID-19 dataset](https://data.world/covid-19-data-resource-hub/covid-19-case-counts/workspace/file?filename=COVID-19+Cases.hyper)
 
-    This dataset contains data from 23rd January, 2020 to 5th April, 2020 as of now. There are some empty attributes and missing values in the dataset so data preprocessing is required. The dataset contains 13attributes and approaximately 5,26,200 records. Main data file attributes description is as follows:
+    This dataset contains data from 23rd January, 2020 to 2nd May, 2020 as of now. There are some missing values in the dataset so data preprocessing is required. The dataset contains approaximately 700,000 records. Dataset's main attributes description is as follows:
 
     * case_type - Confirmed Cases and total deaths
     * cases - Point in time snapshot of to-date totals
@@ -59,18 +66,15 @@ From the World Health Organization - On 31 December 2019, WHO was alerted to sev
     * prep_flow_runtime - Date when the ETL job ran
   
 ## Data Processing
-  As the dataset was very clean and structured, minimal preprocessing was needed to prepare the data for machine learning. All the python code for preprocessing can be found in [Data-Preprocessing.ipynb](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/Data-Preprocessing.ipynb).
+  As the dataset was very structured but contains somewhat missing values, minimal preprocessing was needed to prepare the data for machine learning. We implemented following steps as part of data preprocessing:
+  * We have removed unwanted attributes like: Combined_Key,FIPS, Prep_Flow_Runtime,Data_Source, People_Total_Tested_Count,People_Hospitalized_Cumulative_Count,iso2,iso3,Population_Count
+  * Added a new attributed called "Continent" as part of feature engineering.
+
+  All the python code for preprocessing can be found in [Data-Preprocessing.ipynb](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/Data-Preprocessing.ipynb).
+
 
 ## User Dashboard
   ![User Dashboard](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/image.png)
-
-## Tentative plan for analysis on GCP
-
-  1. EDA and Preprocessing: Data has been already pre processed. We can directly work on it and start analysis.
-  2. Dashboard for User group: We have already created a dashboard for the user group. 
-  3. Machine Learning on GCP: We will use various analysis techniques offered by GCP like PySpark, BigQuery. 
-  4. Evaluation of results: We will be evaluating our result by RMSE(Root Mean Square Error). The smaller the value is the accurate result will be.
-  5. Production Model: We will try to develop couple of models and the best performing model will be choosen for the production model. 
 
 ## Forty Three Rules of Machine Learning
   The project focuses on creating awareness about the Corona Virus Disease(COVID-19)
@@ -116,6 +120,49 @@ From the World Health Organization - On 31 December 2019, WHO was alerted to sev
   different features. So as the data keeps on changing for the coronavirus and its spread,
   it’s uncertainty needs in refactoring of the architecture with the new changing attributes.
   Adding new features to the existing ones can be really productive and effective.
+
+## Data Ingest into GCP
+ We used Google Storage and Google Big Query services to perform further high compute operations on the dataset to make it suitable for Modeling and predictions. 
+ 
+ Following are the steps performed to ingest and process the data in GCP: 
+  1. Create a Google Cloud Storage Bucket.
+  2. Upload the pre-processed data to the Google Storage Bucket.
+  3. Create a table from the dataset in Big Query.("covid19")
+  4.  Create a new table consisting of only the Confirmed Cases from the dataset using Big query.("covid19_confirmed")
+  5.  Split the dataset in Training and Testing subsets for Modeling and predictions. We used 70:30 split ratio for splitting the data.
+  6.  Upload this training and testing data on the GCP Storage bucket.
+
+
+All the code for data ingesting can be found in [Data Analysis using Big Query.ipynb](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/Data%20Analysis%20using%20Big%20Query.ipynb).
+
+##  Modeling on GCP
+We are predicting the number of confirmed cases in future using a linear regression model on GCP. We designed a Liner Regressor Model using the Google Cloud Console.
+
+Following are the steps followed to design the Linear Regressor on GCP:
+
+  1. Navigate to GCP AI Platform and Select the algorithm which you want to use for modeling.
+  2. Select the training data for training the Model. The service provides us with an option to split the training data further for validation of the Model. We have used 20% of the training data for validation.
+  3. Select the Output directory in the Google Cloud Storage for exporting the model for future deployment.
+  4. Provide the Job Id and the Scaling tier, we set the scaling tier to be Basic, but if you have a huge dataset then it would need more compute resources and auto scaling.
+  5. Once basic parameters have been set the build the model and it initiate a job which you can monitor in the Jobs tab.
+  6. Once the Job is complete Deploy the model. Note the version and model name while you deploy the model.
+
+## Results and Output:
+
+### Model: 
+
+  ![Model](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/Model.png)
+
+### Predictions:
+
+  ![Final_Output](https://github.com/karan-shah/global-cases-corono-virus-analysis/blob/master/Final_Output.png)
+
+## Future Work
+  * We want to implement a model which predicts the Deaths as well.
+
+  * We can design a CI/CD pipeline to load the data on regular basis and predict the number of cases in future.
+
+  * Design an cron job to regularly fetch the data from the Data World API.
 
 ## Credits
   
